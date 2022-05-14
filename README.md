@@ -1,7 +1,5 @@
 # Project: Data Modeling with Postgres
 
-***
-
 ## 1. General project information
 
 ### 1.1. Introduction
@@ -35,6 +33,7 @@ Using the song and log datasets, you'll need to create a star schema optimized f
     - start_time, hour, day, week, month, year, weekday
 
 ### 1.4. Disclaimer
+
 Data and project information were kindly provided by [Udacity](https://www.udacity.com/).
 
 ***
@@ -43,8 +42,58 @@ Data and project information were kindly provided by [Udacity](https://www.udaci
 
 ### 2.1. Discuss the purpose of this database in the context of the startup, Sparkify, and their analytical goals
 
+The music streaming startup Sparkify wants to understand what songs their users are listening to. Currently, all information is stored in raw JSON source files and cannot be accessed easily. The purpose of the project is a) to create a database schema, b) set up a Postgres database based on that schema and c) to migrate the existing raw data into the new database using an ETL pipeline. The new database can be queried easily by the Sparkify analytics team to answer their analytical questions and goals.
+
 ### 2.2. How to run the Python scripts
+
+1. Execute create_tables.py on the terminal with the command ```python create_tables.py```, to create the underlying tables
+2. Execute etl.py on the terminal with the command ```python etl.py```, to migrate the data into the tables
+3. Run test.ipynb, to test if the migration happened correctly
 
 ### 2.3. Explanation of the files in the repository
 
-### 2.4. State and justify your database schema design and ETL pipeline.
+- data/log_data
+    - contains source log files in JSON format
+    - used to fill songplays, users and time tables
+
+- data/song_data
+    - contains source song files in JSON format
+    - used to fill songs and artists tables
+
+- sql_queries.py
+    - Python script
+    - contains all SQL statements used in the project
+
+- create_tables.py
+    - Python script
+    - creation of database and tables used for data storage
+
+- etl.ipynb
+    - Python Jupyter Notebook 
+    - can be used used to explore the data and test the ETL process
+
+- etl.py
+    - Python script 
+    - reads JSON log and song data files
+    - processes the data
+    - inserts data into the database
+
+- test.ipynb
+    - Python Jupyter Notebook 
+    - tests for correct loading of the data
+    - sanity tests with test cases
+
+- README.md
+    - Markdown file
+    - general project information
+    - documentation on project
+
+### 2.4. State and justify your database schema design and ETL pipeline
+
+The **database schema design** is a Star schema and contains one fact table *songplays* and four dimension tables *users*, *songs*, *artists* and *time*. Each dimensional table contains a primary key that is being referenced by the fact table. The Star schema offers flexibility with the aggregation analyses that the Sparkify analytics team needs to perform to answer their analytical goals.
+
+The **ETL pipeline** contains four functions:
+    - The function *process_song_file* is used to extract the data from the raw song JSON file and insert the data into the tables *songs* and *artists*
+    - The function *process_log_file* is used to extract the data from the raw log JSON file and insert the data into the tables *time*, *users* and *songplays*
+    - The function *process_data* loads and processes the raw JSON files
+    - The function *main* creates the database connection, processes song_data and log_data information and finally closes the database connection
