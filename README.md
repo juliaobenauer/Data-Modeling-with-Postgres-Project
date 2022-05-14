@@ -93,7 +93,7 @@ The music streaming startup Sparkify wants to understand what songs their users 
 The **database schema design** is a Star schema and contains one fact table *songplays* and four dimension tables *users*, *songs*, *artists* and *time*. Each dimensional table contains a primary key that is being referenced by the fact table. The Star schema offers flexibility with the aggregation analyses that the Sparkify analytics team needs to perform to answer their analytical goals.
 
 The **ETL pipeline** contains four functions:
-    - The function *process_song_file* is used to extract the data from the raw song JSON file and insert the data into the tables *songs* and *artists*
-    - The function *process_log_file* is used to extract the data from the raw log JSON file and insert the data into the tables *time*, *users* and *songplays*
-    - The function *process_data* loads and processes the raw JSON files
-    - The function *main* creates the database connection, processes song_data and log_data information and finally closes the database connection
+- The function *process_song_file* is used to extract the data from the raw song JSON file and insert the data into the tables *songs* and *artists*
+- The function *process_log_file* is used to extract the data from the raw log JSON file and insert the data into the tables *time*, *users* and *songplays*
+- The function *process_data* loads and processes the raw JSON files
+- The function *main* creates the database connection, processes song_data and log_data information and finally closes the database connection
