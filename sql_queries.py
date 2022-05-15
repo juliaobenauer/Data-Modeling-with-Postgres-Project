@@ -69,9 +69,10 @@ CREATE TABLE time (
 
 # INSERT RECORDS
 # songplay_id conflict resolved with ON CONFLICT clause
+# changed value from %s to DEFAULT for songplay_id based on reviewer feedback #1
 songplay_table_insert = ("""
 INSERT INTO songplays (songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+VALUES (DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s)
 ON CONFLICT (songplay_id)
 DO NOTHING
 """)
@@ -101,9 +102,12 @@ ON CONFLICT (artist_id)
 DO NOTHING
 """)
 
+# added ON CONFLICT clause based on reviewer feedback #1
 time_table_insert = ("""
 INSERT INTO time (start_time, hour, day, week, month, year, weekday)
 VALUES (%s, %s, %s, %s, %s, %s, %s)
+ON CONFLICT (start_time)
+DO NOTHING
 """)
 
 # FIND SONGS
