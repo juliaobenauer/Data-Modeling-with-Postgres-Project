@@ -75,7 +75,8 @@ def process_log_file(cur, filepath):
             songid, artistid = None, None
 
         # insert songplay record
-        songplay_data = [index+1, row.ts, row.userId, row.level, songid, artistid, row.sessionId, row.location, row.userAgent]
+        # removed the index here, based on reviewer feedback #1
+        songplay_data = [row.ts, row.userId, row.level, songid, artistid, row.sessionId, row.location, row.userAgent]
         cur.execute(songplay_table_insert, songplay_data)
 
 
